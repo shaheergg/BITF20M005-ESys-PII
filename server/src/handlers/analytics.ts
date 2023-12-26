@@ -124,6 +124,9 @@ export const getDepartmentDistribution = async (req, res) => {
       _count: {
         _all: true,
       },
+      where: {
+        userId: req.user.id,
+      },
     });
 
     const formattedDepartmentDistribution = departmentDistribution.map(
@@ -147,6 +150,9 @@ export const getDegreeDistribution = async (req, res) => {
       _count: {
         _all: true,
       },
+      where: {
+        userId: req.user.id,
+      },
     });
 
     const formattedDegreeDistribution = degreeDistribution.map((entry) => ({
@@ -168,6 +174,7 @@ export const getGraduatedStudents = async (req, res) => {
         endDate: {
           lte: new Date(),
         },
+        userId: req.user.id,
       },
     });
 
@@ -187,6 +194,7 @@ export const getCurrentlyEnrolledStudents = async (req, res) => {
         endDate: {
           gte: currentDate,
         },
+        userId: req.user.id,
       },
     });
 
@@ -208,6 +216,7 @@ export const getRecentlyEnrolledStudents = async (req, res) => {
         startDate: {
           gte: lastMonthDate,
         },
+        userId: req.user.id,
       },
     });
 
@@ -229,6 +238,7 @@ export const getAboutToGraduateStudents = async (req, res) => {
         endDate: {
           lte: nextMonthDate,
         },
+        userId: req.user.id,
       },
     });
 
@@ -245,6 +255,9 @@ export const getProvincialDistribution = async (req, res) => {
       by: ["city"],
       _count: {
         _all: true,
+      },
+      where: {
+        userId: req.user.id,
       },
     });
 

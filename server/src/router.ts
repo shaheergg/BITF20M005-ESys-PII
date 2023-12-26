@@ -3,6 +3,7 @@ import {
   createNewStudent,
   deleteStudent,
   getAllStudents,
+  getOneStudent,
   updateStudent,
 } from "./handlers/student";
 import { checkInterest } from "./middlewares/checkInterest";
@@ -21,6 +22,7 @@ import {
   getDepartmentDistribution,
   getGenderDistribution,
   getGraduatedStudents,
+  getProvincialDistribution,
   getRecentlyEnrolledStudents,
 } from "./handlers/analytics";
 import { handleInputError } from "./middlewares/handleInputError";
@@ -28,6 +30,8 @@ import { body } from "express-validator";
 const router = Router();
 
 router.get("/students", getAllStudents);
+
+router.get("/students/:id", getOneStudent);
 
 router.post(
   "/students",
@@ -92,4 +96,5 @@ router.get("/about-to-gradaute", getAboutToGraduateStudents);
 
 router.get("/recently-enrolled", getRecentlyEnrolledStudents);
 
+router.get("/province-distribution", getProvincialDistribution);
 export default router;

@@ -8,7 +8,11 @@ export const getAllStudents = async (req, res) => {
         id: req.user.id,
       },
       include: {
-        students: true,
+        students: {
+          include: {
+            interest: true,
+          },
+        },
       },
     });
 
@@ -20,6 +24,23 @@ export const getAllStudents = async (req, res) => {
   } catch (error) {
     console.error("Error retrieving students:", error);
     res.status(500).json({ error: "Internal Server Error" });
+  }
+};
+
+export const getOneStudent = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const student = await prisma.student.findUnique({
+      where: {
+        id: Number(id),
+        userId: req.user.id,
+      },
+    });
+    res.status(200).json({ data: student });
+  } catch (error) {
+    res
+      .status(500)
+      .json({ error: "An error occurred while retrieving the student" });
   }
 };
 
@@ -114,7 +135,7 @@ export const deleteStudent = async (req, res) => {
   try {
     const student = await prisma.student.delete({
       where: {
-        id: id,
+        id: Number(id),
       },
     });
     res.status(200).json({ student });
