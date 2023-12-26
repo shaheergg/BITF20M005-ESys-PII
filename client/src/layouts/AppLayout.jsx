@@ -23,8 +23,13 @@ function classNames(...classes) {
 }
 
 export default function AppLayout({ children }) {
-  const { auth } = useAuth();
+  const { auth, setAuth } = useAuth();
   const path = useLocation().pathname;
+
+  const signOut = () => {
+    setAuth(false);
+    localStorage.removeItem("token");
+  };
   return (
     <>
       {/*
@@ -107,15 +112,15 @@ export default function AppLayout({ children }) {
                               {userNavigation.map((item) => (
                                 <Menu.Item key={item.name}>
                                   {({ active }) => (
-                                    <a
-                                      href={item.href}
+                                    <button
+                                      onClick={signOut}
                                       className={classNames(
                                         active ? "bg-gray-100" : "",
-                                        "block px-4 py-2 text-sm text-gray-700"
+                                        "block px-4 py-2 text-sm w-full text-left text-gray-700"
                                       )}
                                     >
                                       {item.name}
-                                    </a>
+                                    </button>
                                   )}
                                 </Menu.Item>
                               ))}
@@ -207,9 +212,11 @@ export default function AppLayout({ children }) {
             </>
           )}
         </Disclosure>
-        <div className="px-4 py-16 mx-auto max-w-7xl sm:px-6 lg:px-8">
-          <h2 className="text-4xl font-semibold">Student Interest System</h2>
-        </div>
+        {auth && (
+          <div className="px-4 py-10 mx-auto max-w-7xl sm:px-6 lg:px-8">
+            <h2 className="text-4xl font-semibold">Student Interest System</h2>
+          </div>
+        )}
         <main>
           <div className="py-6 mx-auto max-w-7xl sm:px-6 lg:px-8">
             {children}

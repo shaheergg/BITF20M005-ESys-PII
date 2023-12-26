@@ -9,7 +9,7 @@ export const DEGREES = [
   "Post Doctorate",
 ];
 
-export const GENDER = ["Male", "Female"];
+export const GENDERS = ["Male", "Female"];
 
 export const CITIES = [
   "Karachi",
@@ -54,4 +54,11 @@ export const CITIES = [
   "Abbotabad",
   "Mandi Bahauddin",
   "Shikarpur",
+];
+
+export const DEPARTMENTS = [
+  "Computer Science",
+  "Software Engineering",
+  "Information Technology",
+  "Data Science",
 ];
